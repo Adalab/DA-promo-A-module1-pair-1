@@ -32,6 +32,7 @@ GROUP BY Customers.CompanyName DESC, YEAR(Orders.OrderDate) DESC;
 /* misma consulta anterior pero con la adición de la cantidad de
  dinero que han pedido por esa cantidad de objetos, teniendo en cuenta los descuentos,*/
 
+<<<<<<< HEAD
 /* 4 */
 /*  nombre de cada compañia cliente junto con cada pedido que han realizado y su fecha. */
 
@@ -49,3 +50,8 @@ WHERE Customers.CustomerID = Orders.CustomerID;
  GROUP BY Products.CategoryID, Products.ProductName, PrecioReducido;
  
  /* ¿Cómo sumamos los totales de PrecioReducido para cada producto? */
+=======
+//* NOTA del GItBook: Se pueden hacer consultas usando el producto cartesiano de más de 2 tablas. 
+Sería que caso en el que además de tener la tabla Empleadas y EmpleadasEnProyectos, 
+se tiene una tabla Proyectos con la información detallada de cada proyecto: IDProyecto, nombre, descripción, presupuesto, etc.*/
+>>>>>>> refs/remotes/origin/main
