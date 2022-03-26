@@ -55,6 +55,7 @@ FROM categories;
 /* 8 */
 SELECT ShippedDate, date_add(ShippedDate, INTERVAL 5 DAY) AS FechaRetrasada
 FROM orders;
+#OFFSET
 
 /* 9 */
 SELECT ProductID

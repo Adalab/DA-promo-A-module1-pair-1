@@ -1,61 +1,66 @@
-# PAIR PROGRAMMING - LOOPS - LARA Y LAURA
+## Pair Programming 7 - Pair 1 - Lara, Laura ##
 
-
-# JUEGO 1: VARIABLES ##
-
-
-import math
 import random
-from re import I, L
+from re import X
 
-# Variables numéricas
-lim_superior = 100
-lim_inferior = 1
-intentos = 0 #contador del número de intento que es
-#num = input() #quitar input
-intentos_permitidos = round(math.log(lim_superior - lim_inferior + 1, 2))
-print(intentos_permitidos)
-numero_secreto = random.randint(lim_inferior, lim_superior)
-intentos_restantes = int(intentos_permitidos) - int(intentos)
-#Intento 1: 4
-#Inicio del juego
+# Ajustes
 
-print("__¡¡Comenzamos el juego!!___")
+# Strings
+palabras = ['Olivia','Tatiana', 'Almudena', 'Alicia', 'Guada', 'Lara', 'Lidia', 'Laura']
 
-#bucle
+# Variables calculadas
+palabra_secreta = palabras[random.randint(0, len(palabras)-1)].upper()
+print(palabra_secreta)
+intentos = len(palabra_secreta) + 2
+num_letras= len(palabra_secreta)
+contador = 0
 
-while intentos <= intentos_permitidos:
-      print('Tienes', intentos_restantes, ' intentos para adivinar un número que está entre',
-      lim_inferior, 'y', lim_superior, '.') 
-      print("Pon un número:")
-      num = int(input())
-      print("El número que has elegido es", num)   
-  
-      if num > numero_secreto:
-            print("Lo siento, el número secreto es más bajo que este")
-      if num < numero_secreto:
-            print("Lo siento, el número secreto es más alto que este")
-      if num == numero_secreto:
-            print("-- ¡Enhorabuena! Has adivinado el número. --")
-            break
-      intentos = intentos +1
-      intentos_restantes = int(intentos_permitidos) - int(intentos)
+# Inicio del juego
+print("-- ¡Comenzamos el juego! --")
+#print("Tienes", intentos,  "intentos para adivinar la palabra.")
 
-#actualizar la vv. EL código no vuelve atrás, entonces hay que especificar la variable que cuenta otra vez.
+for letra in palabra_secreta:
+    
+
+    print("Tienes", intentos,  "intentos para adivinar la palabra.")
+    letra_propuesta = input()
+    print("Intento: ", contador, "La letra elegida es: ", letra_propuesta)
+   
+    palabra_vacia = ""
+    if letra_propuesta ==  palabra_secreta[contador]:
+        palabra_vacia[contador] = letra_propuesta
+        # if letra_propuesta == letra_pal_secreta:
+        # print("_", letra_propuesta) #aquí ponemos el índice de donde se encuentra lal etra propuesta
+    print(palabra_vacia)
+    contador = contador + 1
+    intentos = intentos - 1
+
+# Adivinanzas
+    # Input de la usuaria
+       # Actualizar la palabra y los fallos
+       # Comunicar el estado del juego a la usuaria
+    # Parar el juego si la palabra ha sido adivinada
+# Final del juego_l
 
 
-
-print("-- Terminamos el juego. El número era ", numero_secreto,  ", ¿lo adivinaste? --")
-
-
-
-# -- ¡Enhorabuena! Has adivinado el número. --
-
+##OUTPUT
 # -- ¡Comenzamos el juego! --
-# Tienes 3 intentos para adivinar el número entre 2 y 9.
-# Intento 1: 7
-# Lo siento, el número secreto es más bajo que este.
-# Intento 2: 4
-# Lo siento, el número secreto es más alto que este.
-# Intento 3: 6
-# -- ¡Enhorabuena! Has adivinado el número. --
+# Tienes 8 intentos para adivinar la palabra.
+
+# Intento 1: E
+# ____  -  E
+
+# Intento 2: A
+# _A_A  -  E
+
+# Intento 3: S
+# _A_A  -  ES
+
+# Intento 4: D
+# DA_A  -  ES
+
+# Intento 5: T
+# DATA  -  ES
+
+# -- ¡Terminamos el juego! --
+# Enhorabuena, has adivinado la palabra.
