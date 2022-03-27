@@ -1,53 +1,55 @@
 ## Pair Programming 7 - Pair 1 - Lara, Laura  - Loops 2 - AHORCADO ##
 
 import random
-from re import X
-
-# Ajustes
+from re import A, X
 
 # Strings
-palabras = ['Olivia','Tatiana', 'Almudena', 'Alicia', 'Guada', 'Lara', 'Lidia', 'Laura']
+palabras = ['Olivia', 'Tatiana', 'Almudena',
+            'Alicia', 'Guada', 'Lara', 'Lidia', 'Laura']
 
 # Variables calculadas
 palabra_secreta = palabras[random.randint(0, len(palabras)-1)].upper()
 intentos = len(palabra_secreta)
-num_letras = len(palabra_secreta) #para poner nº guiones
-palabra_secreta
-print(palabra_secreta)
+num_letras = len(palabra_secreta)
+palabra_vacia = "_ " * num_letras
 contador = 1
-
 
 # Inicio del juego
 print("-- ¡Comenzamos el juego! --")
-#print("Tienes", intentos,  "intentos para adivinar la palabra.")
+print("Esta es tu palabra secreta tiene ", num_letras, "letras. Mira: \n")
+print(palabra_vacia, "\n")
 
-for letra in palabra_secreta:
-    
-    print("Tienes", intentos,  "intentos para adivinar la palabra.")
+while intentos > 0:
+    print("Tienes", intentos,
+          "intentos para adivinar la palabra secreta. Dime una letra, y vemos si está:")
     letra_propuesta = input()
-    print("Intento: ", contador, "La letra elegida es: ", letra_propuesta)
-   
-    palabra_vacia = ""
-    if letra_propuesta in palabra_secreta:
-        list(palabra_vacia)
-        x = (list(palabra_secreta).index(letra_propuesta))
-        palabra_vacia[x] = letra_propuesta
-        
-        # if letra_propuesta == letra_pal_secreta:
-        # print("_", letra_propuesta) #aquí ponemos el índice de donde se encuentra lal etra propuesta
-    print(palabra_vacia)
+    print("Intento:", contador, "La letra elegida es:", letra_propuesta, ".")
+    for letra in palabra_secreta:
+        if letra_propuesta == letra:
+            print("¡Correcto! La letra ", letra_propuesta,
+                  "está en la palabra secreta. La colocamos:")
+            x = palabra_secreta.index(letra_propuesta)
+            palabra_vacia[x] = letra_propuesta
+
+    print(palabra_vacia, "\n")
     contador = contador + 1
     intentos = intentos - 1
 
+if palabra_vacia == palabra_secreta:
+    print("¡Enhorabuena")
+else:
+    print("¿La revancha?")
+
+print("Terminamos el juego")
 # Adivinanzas
-    # Input de la usuaria
-       # Actualizar la palabra y los fallos
-       # Comunicar el estado del juego a la usuaria
-    # Parar el juego si la palabra ha sido adivinada
+# Input de la usuaria
+# Actualizar la palabra y los fallos
+# Comunicar el estado del juego a la usuaria
+# Parar el juego si la palabra ha sido adivinada
 # Final del juego_l
 
 
-##OUTPUT
+# OUTPUT
 # -- ¡Comenzamos el juego! --
 # Tienes 8 intentos para adivinar la palabra.
 
