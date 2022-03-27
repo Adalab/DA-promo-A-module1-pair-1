@@ -1,4 +1,4 @@
-## Pair Programming 7 - Pair 1 - Lara, Laura ##
+## Pair Programming 7 - Pair 1 - Lara, Laura  - Loops 2 - AHORCADO ##
 
 import random
 from re import X
@@ -10,10 +10,12 @@ palabras = ['Olivia','Tatiana', 'Almudena', 'Alicia', 'Guada', 'Lara', 'Lidia', 
 
 # Variables calculadas
 palabra_secreta = palabras[random.randint(0, len(palabras)-1)].upper()
+intentos = len(palabra_secreta)
+num_letras = len(palabra_secreta) #para poner nº guiones
+palabra_secreta
 print(palabra_secreta)
-intentos = len(palabra_secreta) + 2
-num_letras= len(palabra_secreta)
-contador = 0
+contador = 1
+
 
 # Inicio del juego
 print("-- ¡Comenzamos el juego! --")
@@ -21,14 +23,16 @@ print("-- ¡Comenzamos el juego! --")
 
 for letra in palabra_secreta:
     
-
     print("Tienes", intentos,  "intentos para adivinar la palabra.")
     letra_propuesta = input()
     print("Intento: ", contador, "La letra elegida es: ", letra_propuesta)
    
     palabra_vacia = ""
-    if letra_propuesta ==  palabra_secreta[contador]:
-        palabra_vacia[contador] = letra_propuesta
+    if letra_propuesta in palabra_secreta:
+        list(palabra_vacia)
+        x = (list(palabra_secreta).index(letra_propuesta))
+        palabra_vacia[x] = letra_propuesta
+        
         # if letra_propuesta == letra_pal_secreta:
         # print("_", letra_propuesta) #aquí ponemos el índice de donde se encuentra lal etra propuesta
     print(palabra_vacia)

@@ -1,64 +1,47 @@
-# Ejercicio Pair programming 6 - Lara, Laura #
-
-# Variables predefinidas
-
-# Definir el tablero con todo "-"
-
-# Inicio del juego
-
-# Imprimir tableroa
-print("-- ¡Comenzamos el juego! --")
-print("\n")
-print(' - | - | - \n - | - | - \n - | - | - ')
+## Pair Programming 6 - Pair 1 - Lara, Laura  - Loops 1 - Adivina número, más bajo, más alto ##
 
 
-# Input de la usuaria
+# JUEGO 1: VARIABLES ##
 
 
-print("Dime un caracter seguido de un espacio y dos numeros n,m:")
-input_usuaria = input()
-print("\n")
-print("La usuaria dio el input: ", input_usuaria)
+import math
+import random
+from re import I, L
 
-tuple(input_usuaria)
-type(input_usuaria)
-letra, *coor = input_usuaria
+# Variables numéricas
+lim_superior = 100
+lim_inferior = 1
+intentos = 0 #contador del número de intento que es
+intentos_permitidos = round(math.log(lim_superior - lim_inferior + 1, 2))
+print(intentos_permitidos)
+numero_secreto = random.randint(lim_inferior, lim_superior)
+intentos_restantes = int(intentos_permitidos) - int(intentos)
 
-
-
-print(letra)
-print(tuple(coor))
-
-coor = tuple(int(num)-1 for num in coor.split(",")) 
-print(type(coor))
-
-#matriz= [n,m], [n,m], [n,m]
-
-#zip(tup1,tup2,tup3) 
-# (tup1
-#  tup2
-#  tup3)
+#Inicio del juego
+print("___¡¡Comenzamos el juego!!___")
 
 
+while intentos < intentos_permitidos:
+      print('Tienes', intentos_restantes, 'intentos para adivinar un número que está entre',
+      lim_inferior, 'y', lim_superior,) 
+      print("Pon un número:")
+      num = int(input())
+      print("El número que has elegido es", num)   
+
+      if num > numero_secreto:
+            print("Lo siento, el número secreto es más bajo que este")
+      if num < numero_secreto:
+            print("Lo siento, el número secreto es más alto que este")
+      if num == numero_secreto:
+            print("-- ¡Enhorabuena! Has adivinado el número :) Felicidades!! --")
+            break
+      intentos = intentos +1
+      intentos_restantes = int(intentos_permitidos) - int(intentos)
+else:
+      print("Esta vez no has adivinado el número. Te animamos a que lo intentes otra vez :)")
+
+
+print("-- Terminamos el juego. Hasta pronto --")
 
 
 
-# Actualizar tablero
-
-# Imprimir tablero
-
-# Input del usuario
-
-
-#coor = tuple(int(co)-1 for co in coor.split(","))
-
-# Actualizar tablero
-
-# Imprimir tablero
-
-# Convertir los caracteres del board a una sola lista
-board_list = sum(board,[])
-
-# Sacar los elementos únicos que no sean "-"
-
-# Final del juego
