@@ -1,44 +1,38 @@
-/* Pair programming 4 - Consultas Avanzadas I - 21 marzo */
+/* Pair Programming: Laura y Lara || CONSULTAS AVANZADAS I || 21/03/22 */
+
 USE Northwind;
 
 /* 1 */ 
+SELECT MIN(unit_price) AS lowest_price, MAX(unit_price) AS highest_price
+FROM products;
 
-SELECT MIN(UnitPrice) AS LowestPrice, MAX(UnitPrice)AS HighestPrice
-FROM Products;
-
-
-/* 2 [!] Duda de enunciado */
-
-SELECT  COUNT(ProductID), AVG(UnitPrice)
-FROM Products;
-
+/* 2 */
+SELECT COUNT(product_id), AVG(unit_price)
+FROM products;
 
 /* 3 */ 
+SELECT MAX(freight), MIN(freight)
+FROM orders
+WHERE ship_country = "UK";
 
-SELECT MAX(Freight), MIN(Freight)
-FROM Orders
-WHERE ShipCountry = "UK";
+/* 4 */
+SELECT AVG(unit_price) AS precio_medio
+FROM products;
 
-/* 4 DUDAAAA */
-SELECT AVG(UnitPrice) AS PrecioMedio
-FROM Products;
+SELECT product_name
+FROM products
+WHERE unit_price > 28.866363636363637
+	ORDER BY unit_price DESC;
 
-SELECT ProductName
-FROM Products
-WHERE UnitPrice > 28.866363636363637
-	ORDER BY UnitPrice DESC;
-
-
-/* 5 Duda sobre productos con 1, que no hay */
-
-SELECT COUNT(Discontinued)
-FROM Products
-WHERE Discontinued = 1;
+/* 5 */
+SELECT COUNT(discontinued)
+FROM products
+WHERE discontinued = 1;
+-- En principio no hay ninguno.
 
 /* 6 */
-
-SELECT ProductID,ProductName
-FROM Products
-WHERE Discontinued = 0
-ORDER BY ProductID DESC
+SELECT product_id, product_name
+FROM products
+WHERE discontinued = 0
+ORDER BY product_id DESC
 	LIMIT 10;

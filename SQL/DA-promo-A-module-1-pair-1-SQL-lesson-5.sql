@@ -1,59 +1,64 @@
+/* Pair Programming: Laura y Lara || CONSULTAS AVANZADAS II || 23/03/22 */
+
 USE Northwind;
 
 /* 1 */
-
-/*Relación entre número de pedidos y máxima carga:
-Desde logística nos piden el número de pedidos y
- la máxima cantidad de carga de entre los mismos
- (freight) que han sido enviados por cada empleado
- (mostrando el ID de empleado en cada caso). */
+-- Número de pedidos y la máxima cantidad de carga 
+-- enviados por cada empleado (mostrando ID). 
+ SELECT employee_id, COUNT(DISTINCT order_id) AS num_pedidos, MAX(freight) AS carga_maxima
+ FROM orders
+ GROUP BY employee_id;
  
- SELECT EmployeeID, COUNT(DISTINCT OrderID) AS NumPedidos, MAX(Freight) AS CargaMaxima
- FROM Orders
- GROUP BY EmployeeID;
+ /* 2 */ 
+-- Descartar pedidos sin fecha y ordénalos: IDempleado
+ SELECT employee_id AS empleado, COUNT(DISTINCT order_id) AS num_pedidos, MAX(Freight) AS carga_maxima, shipped_date
+ FROM orders
+ GROUP BY employee_id, shipped_date
+ HAVING shipped_date IS NOT NULL;
+ -- HAVING YEAR(shipped_date) IS NOT "0000";
+ -- OFFSET 1;
  
- /* 2 
-Descartar pedidos sin fecha y ordénalos: IDempleado */
- SELECT COUNT(NULL), ShippedDate
- FROM Orders
- GROUP BY COUNT(NULL);
-
-SELECT COUNT("0000"), ShippedDate
- FROM Orders
- GROUP BY ShippedDate;
-
-
- SELECT EmployeeID AS Empleado, COUNT(DISTINCT OrderID) AS NumPedidos, MAX(Freight) AS CargaMaxima, ShippedDate
- FROM Orders
- GROUP BY EmployeeID, ShippedDate
- HAVING ShippedDate IS NOT ("0000:00:00 00:00:00");
- 
-/* DUDAS */
-
 /* 3 */
-/* Números de pedidos por día, separado por DAY MONTH YEAR */
-
-SELECT DAY(OrderDate), MONTH(OrderDate), YEAR(OrderDate), COUNT(OrderID)
-FROM Orders
-GROUP BY OrderDate;
+-- Números de pedidos por día, separado por DAY MONTH YEAR. 
+SELECT DAY(order_date), MONTH(order_date), YEAR(order_date), COUNT(order_id)
+FROM orders
+GROUP BY order_date;
 
 /* 4 */
-/* Número de pedidos por mes y año */
-SELECT MONTH(OrderDate), YEAR(OrderDate), COUNT(OrderID)
-FROM Orders
-GROUP BY MONTH(OrderDate), YEAR(OrderDate);
+-- Número de pedidos por mes y año.
+SELECT MONTH(order_date), YEAR(order_date), COUNT(order_id)
+FROM orders
+GROUP BY MONTH(order_date), YEAR(order_date);
+
 
 /* 5 */ 
-/* último pedido de cada cliente */
+--  ciudades con 4 o más empleadas:
+SELECT city, COUNT(employee_id) AS cuenta
+FROM employees
+GROUP BY city
+HAVING cuenta >= 4;
 
-SELECT MAX(OrderID), CustomerID
-FROM Orders
-GROUP BY CustomerID;
+/* 6 */
+-- Pedidos alto y bajo / 2000
+SELECT order_id, 
+CASE 
+		WHEN (unit_price - unit_price * discount) * quantity > 2000 THEN "Alto"
+		ELSE "Bajo"
+		END AS rango_pedidos
+FROM order_details;
 
-/* 6 */ 
-/* Clientes por país y ciudad, de más a menos */
 
-SELECT COUNT(DISTINCT CustomerID), ShipCountry, ShipCity
-FROM Orders
-GROUP BY ShipCountry, ShipCity
-ORDER BY COUNT(DISTINCT CustomerID) DESC;
+
+-- -----------------------------------------------------------
+/* EJERCICIOS BORRADOS 
+-- Último pedido de cada cliente
+SELECT MAX(order_id), customer_id
+FROM orders
+GROUP BY customer_id;
+
+
+/* Clientes por país y ciudad, de más a menos 
+SELECT COUNT(DISTINCT customer_id), ship_country, ship_city
+FROM orders
+GROUP BY ship_country, ship_city
+ORDER BY COUNT(DISTINCT customer_id) DESC; */

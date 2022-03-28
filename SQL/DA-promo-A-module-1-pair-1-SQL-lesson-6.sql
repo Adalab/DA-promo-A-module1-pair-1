@@ -1,57 +1,57 @@
-/* Pair Programming - 6 - Consultas en múltiples tablas 1 - 23 mar */
+/* Pair Programming: Laura y Lara || CONSULTAS EN MÚLTIPLES TABLAS I || 24/03/22 */
 
 USE Northwind;
 
 /* 1 */
-/*Pedidos por empresa en UK.
-cuántos pedidos ha realizado cada empresa cliente de UK.
-Nos piden el ID del pedido y el nombre de la empresa. */
+-- Nº pedidos por empresa en UK: id_cliente y nombre empresa.
  
- SELECT COUNT(Orders.OrderID), Orders.OrderID, Customers.CompanyName, Customers.Country
- FROM Orders 
- INNER JOIN Customers
- ON Orders.CustomerID = Customers.CustomerID
- WHERE Customers.Country = 'UK'
- GROUP BY Customers.CompanyName DESC, Orders.OrderID;
+ SELECT COUNT(orders.order_id) AS numero_pedidos, customers.company_name, customers.customer_id
+ FROM orders 
+ INNER JOIN customers
+ ON orders.customer_id = customers.customer_id
+ WHERE customers.country = 'UK'
+ GROUP BY customers.company_name, customers.customer_id;
 
-/* Al tener el OrderID se quita la suma total de pedidos por empresa (?) */
+/* 2 */
 
-/* 2 * /
-/* Cuántos objetos ha pedido cada empresa cliente de UK durante cada año. Nos
- piden concretamente conocer el nombre de la empresa, el año, y la cantidad de objetos */
- /* ¿Cantidad de objetos es igual a COUNT(OrdersID)? */
- 
-SELECT Customers.Country, Customers.CompanyName, YEAR(Orders.OrderDate), COUNT(Orders.OrderID) AS CantidadDePEDIDOS
-FROM Orders 
-INNER JOIN Customers
-ON Orders.CustomerID = Customers.CustomerID
-WHERE Customers.Country = 'UK'
-GROUP BY Customers.CompanyName DESC, YEAR(Orders.OrderDate) DESC;
+SELECT customers.country, customers.company_name, YEAR(orders.order_date) AS año, COUNT(orders.order_id) AS cantidad_pedidos
+FROM orders 
+INNER JOIN customers
+ON orders.customer_id = customers.customer_id
+WHERE customers.country = 'UK'
+GROUP BY YEAR(orders.order_date) DESC, customers.company_name DESC;
 
 /* 3 */
-/* misma consulta anterior pero con la adición de la cantidad de
- dinero que han pedido por esa cantidad de objetos, teniendo en cuenta los descuentos,*/
+-- = + dinero con %
 
-<<<<<<< HEAD
+SELECT customers.country, customers.company_name, YEAR(orders.order_date) AS año, COUNT(orders.order_id) AS cantidad_pedidos, SUM(order_details.unit_price - order_details.unit_price * order_details.discount) AS precio
+FROM orders 
+INNER JOIN customers
+ON orders.customer_id = customers.customer_id
+INNER JOIN order_details
+ON orders.order_id = order_details.order_id
+WHERE customers.country = 'UK'
+GROUP BY customers.company_name DESC,YEAR(orders.order_date) DESC;
+
 /* 4 */
-/*  nombre de cada compañia cliente junto con cada pedido que han realizado y su fecha. */
+/* Nombre de cada compañia cliente junto con cada pedido que han realizado y su fecha */
 
-SELECT Customers.CompanyName, Orders.OrderID, Orders.OrderDate
-FROM Customers, Orders
-WHERE Customers.CustomerID = Orders.CustomerID;
+SELECT customers.company_name, orders.order_id, orders.order_date
+FROM customers, orders
+WHERE customers.customer_id = orders.customer_id;
 
 /* 5 */
-/* cada tipo de producto que se han vendido, sus categorías , nombre , y el total de dinero
- por el que se ha vendido cada tipo de producto (teniendo en cuenta los descuentos)*/
+-- cada tipo de producto que se han vendido, sus categorías , nombre , y el total de dinero
+-- por el que se ha vendido cada tipo de producto (teniendo en cuenta los descuentos)
  
- SELECT Products.CategoryID, Products.ProductName, OrderDetails.UnitPrice - OrderDetails.UnitPrice * OrderDetails.Discount AS PrecioReducido
- FROM Products, OrderDetails
- WHERE Products.ProductID = OrderDetails.ProductID
- GROUP BY Products.CategoryID, Products.ProductName, PrecioReducido;
- 
- /* ¿Cómo sumamos los totales de PrecioReducido para cada producto? */
-=======
-//* NOTA del GItBook: Se pueden hacer consultas usando el producto cartesiano de más de 2 tablas. 
-Sería que caso en el que además de tener la tabla Empleadas y EmpleadasEnProyectos, 
-se tiene una tabla Proyectos con la información detallada de cada proyecto: IDProyecto, nombre, descripción, presupuesto, etc.*/
->>>>>>> refs/remotes/origin/main
+SELECT categories.category_name, products.product_name, SUM(order_details.unit_price - order_details.unit_price * order_details.discount) AS total_vendido_producto
+FROM products
+INNER JOIN categories
+ON categories.category_id = products.category_id
+INNER JOIN order_details
+ON products.product_id = order_details.product_id
+GROUP BY categories.category_name, products.product_name;
+-- Asumimos que al calcular total_vendido_producto solo hemos considerado los productos sí vendidos, al sacarlos de la tabla orders_details
+/*Ahora nos piden una lista con cada tipo de producto que se han vendido, 
+sus categorías, nombre, y el total de dinero por el que se ha vendido cada
+ tipo de producto (teniendo en cuenta los descuentos). ¿Cuántos join necesitas? */
